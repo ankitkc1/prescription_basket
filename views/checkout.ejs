@@ -1,0 +1,44 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<main class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      <div class="page-panel p-4 p-lg-5">
+        <span class="eyebrow">Checkout demo</span>
+        <h1 class="fw-bold mt-2">Premium checkout unlocked</h1>
+        <p class="text-muted">This is a prototype checkout screen. In a real build, this would connect to Coles, Woolworths, Aldi, marketplace partners or affiliate checkout APIs.</p>
+
+        <div class="checkout-summary my-4">
+          <div>
+            <p class="text-muted mb-1">Basket total</p>
+            <h2>$<%= basket.total.toFixed(2) %></h2>
+          </div>
+          <div>
+            <p class="text-muted mb-1">Best store option</p>
+            <h2><%= basket.selectedStore %></h2>
+          </div>
+        </div>
+
+        <h2 class="h5 fw-bold">Order items</h2>
+        <div class="row g-3 mt-1">
+          <% basket.items.forEach((item) => { %>
+            <div class="col-md-6">
+              <div class="checkout-item">
+                <strong><%= item.name %></strong>
+                <span><%= item.quantity %> · $<%= item.chosenPrice.toFixed(2) %></span>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+
+        <div class="alert alert-info rounded-4 border-0 mt-4">
+          Demo complete: payment and real retailer order placement are intentionally simulated.
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,126 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+<%- include('../partials/flash') %>
+
+<main class="container py-5">
+  <div class="result-hero p-4 p-lg-5 mb-4">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-8">
+        <span class="eyebrow">Weekly basket</span>
+        <h1 class="fw-bold mt-2"><%= basket.request.culturalPreference %> grocery basket under $<%= basket.request.budget %></h1>
+        <p class="text-muted mb-0"><%= basket.items.length %> items · Best mixed price total <strong>$<%= basket.total.toFixed(2) %></strong> · Estimated saving <strong>$<%= basket.savingsComparedToHighest.toFixed(2) %></strong></p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="/checkout/<%= basket._id %>" class="btn btn-primary-brand btn-lg rounded-pill px-4">Checkout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="page-panel p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h4 fw-bold mb-0">Grocery list</h2>
+          <span class="text-muted small">Chosen by lowest demo price</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table align-middle basket-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Best store</th>
+                <th class="text-end">Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% basket.items.forEach((item, index) => { %>
+                <tr>
+                  <td>
+                    <strong><%= item.name %></strong>
+                    <div class="small text-muted"><%= item.category %> · <%= item.reason %></div>
+                    <div class="tag-row mt-1">
+                      <% item.healthTags.slice(0, 3).forEach((tag) => { %><span><%= tag %></span><% }) %>
+                    </div>
+                  </td>
+                  <td><%= item.quantity %></td>
+                  <td><%= item.chosenStore %></td>
+                  <td class="text-end fw-bold">$<%= item.chosenPrice.toFixed(2) %></td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-success rounded-pill" data-bs-toggle="collapse" data-bs-target="#swap-<%= index %>" type="button">Swap</button>
+                  </td>
+                </tr>
+                <tr class="collapse" id="swap-<%= index %>">
+                  <td colspan="5">
+                    <div class="swap-suggestion p-3">
+                      <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+                        <div>
+                          <strong>Healthier swap: <%= item.swap.name %></strong>
+                          <p class="small text-muted mb-0"><%= item.swap.reason %> Best demo price: $<%= item.swap.price.toFixed(2) %> at <%= item.swap.store %>.</p>
+                        </div>
+                        <form method="POST" action="/basket/<%= basket._id %>/apply-swap">
+                          <input type="hidden" name="index" value="<%= index %>">
+                          <button class="btn btn-success rounded-pill px-3" type="submit">Apply swap</button>
+                        </form>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="side-card p-4 mb-4">
+        <h2 class="h5 fw-bold">Store comparison</h2>
+        <p class="text-muted small">Same basket estimated across nearby demo stores.</p>
+        <div class="store-list">
+          <% basket.storeComparison.forEach((store, index) => { %>
+            <div class="store-row <%= index === 0 ? 'best' : '' %>">
+              <div>
+                <strong><%= store.store %></strong>
+                <span><%= store.distanceKm %> km away</span>
+              </div>
+              <b>$<%= store.total.toFixed(2) %></b>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="side-card p-4 mb-4">
+        <h2 class="h5 fw-bold">Nutrition notes</h2>
+        <ul class="nutrition-list">
+          <li><%= basket.nutritionSummary.protein %></li>
+          <li><%= basket.nutritionSummary.fibre %></li>
+          <li><%= basket.nutritionSummary.sodium %></li>
+          <li><%= basket.nutritionSummary.sugar %></li>
+        </ul>
+        <p class="small text-muted mb-0"><%= basket.nutritionSummary.note %></p>
+      </div>
+
+      <div class="side-card p-4">
+        <h2 class="h5 fw-bold">Feedback</h2>
+        <form method="POST" action="/basket/<%= basket._id %>/feedback">
+          <label class="form-label">Rating</label>
+          <select name="rating" class="form-select mb-3" required>
+            <option value="5">5 - Very useful</option>
+            <option value="4">4 - Good</option>
+            <option value="3">3 - Okay</option>
+            <option value="2">2 - Needs work</option>
+            <option value="1">1 - Not useful</option>
+          </select>
+          <label class="form-label">Comment</label>
+          <textarea name="comment" class="form-control mb-3" rows="3" placeholder="What should improve?"></textarea>
+          <button class="btn btn-outline-dark rounded-pill px-4" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

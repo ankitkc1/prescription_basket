@@ -1,0 +1,41 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+<%- include('../partials/flash') %>
+
+<main class="container py-5">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+      <span class="eyebrow">Saved baskets</span>
+      <h1 class="fw-bold mt-2 mb-0">Basket history</h1>
+    </div>
+    <a href="/basket/new" class="btn btn-primary-brand rounded-pill px-4">Create new basket</a>
+  </div>
+
+  <% if (!baskets.length) { %>
+    <div class="empty-state text-center p-5">
+      <h2 class="h4">No saved baskets yet</h2>
+      <p class="text-muted">Generate your first basket to see it here.</p>
+    </div>
+  <% } else { %>
+    <div class="row g-4">
+      <% baskets.forEach((basket) => { %>
+        <div class="col-md-6 col-lg-4">
+          <a href="/basket/<%= basket._id %>" class="basket-history-card h-100">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <strong><%= basket.request.culturalPreference %> · <%= basket.request.diet %></strong>
+                <p class="small text-muted mb-0"><%= new Date(basket.createdAt).toLocaleString() %></p>
+              </div>
+              <span>$<%= basket.total.toFixed(2) %></span>
+            </div>
+            <hr>
+            <p class="small text-muted"><%= basket.items.length %> items for <%= basket.request.suburb %></p>
+            <p class="small mb-0"><strong>Best:</strong> <%= basket.selectedStore %></p>
+          </a>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</main>
+
+<%- include('../partials/footer') %>

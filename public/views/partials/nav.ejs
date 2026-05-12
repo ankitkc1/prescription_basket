@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-light app-nav sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
+      <span class="brand-mark">PB</span>
+      <span>Prescription Basket</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <% if (currentUser) { %>
+          <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="/basket/new">Create basket</a></li>
+          <li class="nav-item"><a class="nav-link" href="/basket/history">History</a></li>
+          <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+          <li class="nav-item">
+            <span class="plan-pill <%= currentUser.plan === 'premium' ? 'premium' : '' %>"><%= currentUser.plan === 'premium' ? 'Premium' : 'Free plan' %></span>
+          </li>
+          <li class="nav-item">
+            <form method="POST" action="/logout" class="d-inline">
+              <button class="btn btn-sm btn-outline-dark rounded-pill" type="submit">Log out</button>
+            </form>
+          </li>
+        <% } else { %>
+          <li class="nav-item"><a class="nav-link" href="/login">Log in</a></li>
+          <li class="nav-item"><a class="btn btn-sm btn-dark rounded-pill px-3" href="/register">Start free</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>

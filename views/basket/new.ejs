@@ -1,0 +1,91 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+<%- include('../partials/flash') %>
+
+<main class="container py-5">
+  <div class="row g-4 align-items-start">
+    <div class="col-lg-7">
+      <div class="page-panel p-4 p-lg-5">
+        <span class="eyebrow">Create basket</span>
+        <h1 class="fw-bold mt-2 mb-3">Build your personalised weekly groceries</h1>
+        <p class="text-muted">Change anything for this basket. Your saved profile is already filled in.</p>
+
+        <form method="POST" action="/basket/generate" class="mt-4">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <label class="form-label">Weekly budget ($AUD)</label>
+              <input type="number" min="30" max="300" step="1" name="budget" class="form-control form-control-lg" value="<%= user.profile.weeklyBudget %>" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Suburb</label>
+              <input name="suburb" class="form-control form-control-lg" value="<%= user.profile.suburb %>">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Cultural preference</label>
+              <select name="culturalPreference" class="form-select form-select-lg">
+                <% culturalOptions.forEach((option) => { %>
+                  <option value="<%= option %>" <%= user.profile.culturalPreference === option ? 'selected' : '' %>><%= option %></option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Diet</label>
+              <select name="diet" class="form-select form-select-lg">
+                <% dietOptions.forEach((option) => { %>
+                  <option value="<%= option %>" <%= user.profile.diet === option ? 'selected' : '' %>><%= option %></option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Cooking time</label>
+              <select name="cookingTime" class="form-select form-select-lg">
+                <% cookingTimeOptions.forEach((option) => { %>
+                  <option value="<%= option %>" <%= user.profile.cookingTime === option ? 'selected' : '' %>><%= option %></option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <label class="form-label">Health goals for this basket</label>
+            <div class="chip-grid">
+              <% healthGoalOptions.forEach((option) => { %>
+                <label class="choice-chip">
+                  <input type="checkbox" name="healthGoals" value="<%= option %>" <%= user.profile.healthGoals.includes(option) ? 'checked' : '' %>>
+                  <span><%= option %></span>
+                </label>
+              <% }) %>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <label class="form-label">Health conditions to consider</label>
+            <div class="chip-grid">
+              <% healthConditionOptions.forEach((option) => { %>
+                <label class="choice-chip">
+                  <input type="checkbox" name="healthConditions" value="<%= option %>" <%= user.profile.healthConditions.includes(option) ? 'checked' : '' %>>
+                  <span><%= option %></span>
+                </label>
+              <% }) %>
+            </div>
+          </div>
+
+          <button class="btn btn-primary-brand btn-lg rounded-pill px-4 mt-5" type="submit">Generate basket</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="side-card p-4">
+        <h2 class="h5 fw-bold">What happens next?</h2>
+        <div class="timeline-list mt-3">
+          <div><strong>1. Match foods</strong><span>Based on culture, diet and health needs.</span></div>
+          <div><strong>2. Compare prices</strong><span>Demo prices across Aldi, Coles, Woolworths, market and Asian grocery.</span></div>
+          <div><strong>3. Suggest swaps</strong><span>For lower sodium, higher fibre, lower sugar or better value.</span></div>
+          <div><strong>4. Checkout gate</strong><span>Checkout is a premium demo feature.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

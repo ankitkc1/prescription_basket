@@ -1,0 +1,32 @@
+{
+  "name": "prescription-basket",
+  "version": "1.0.0",
+  "description": "Prescription Basket - personalised healthy grocery basket web app for Australian students and young professionals.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mongodb",
+    "ejs",
+    "grocery",
+    "health-tech"
+  ],
+  "author": "Prescription Basket",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

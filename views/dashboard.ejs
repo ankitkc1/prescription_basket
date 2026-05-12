@@ -1,0 +1,77 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<main class="container py-5">
+  <div class="dashboard-hero p-4 p-lg-5 mb-4">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-8">
+        <span class="eyebrow">Dashboard</span>
+        <h1 class="fw-bold mt-2">Hi <%= user.name %>, ready to plan your week?</h1>
+        <p class="text-muted mb-0">Your current profile is set to <strong><%= user.profile.culturalPreference %></strong> food, <strong><%= user.profile.diet %></strong> diet, and a weekly grocery budget of <strong>$<%= user.profile.weeklyBudget %></strong>.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="/basket/new" class="btn btn-primary-brand btn-lg rounded-pill px-4">Create a basket</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-4">
+      <div class="stat-card">
+        <p class="text-muted mb-1">Plan</p>
+        <h3><%= user.plan === 'premium' ? 'Premium' : 'Free' %></h3>
+        <p class="small mb-0"><%= user.plan === 'premium' ? 'Checkout demo unlocked.' : 'Checkout requires premium upgrade.' %></p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="stat-card">
+        <p class="text-muted mb-1">Suburb</p>
+        <h3><%= user.profile.suburb %></h3>
+        <p class="small mb-0">Nearby prices are simulated for demo use.</p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="stat-card">
+        <p class="text-muted mb-1">Health goals</p>
+        <h3><%= user.profile.healthGoals.length || 0 %> selected</h3>
+        <p class="small mb-0"><a href="/profile">Update food profile</a></p>
+      </div>
+    </div>
+  </div>
+
+  <section class="mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="h4 fw-bold mb-0">Recent baskets</h2>
+      <a href="/basket/history" class="small">View all</a>
+    </div>
+
+    <% if (!baskets.length) { %>
+      <div class="empty-state text-center p-5">
+        <h3 class="h5">No baskets yet</h3>
+        <p class="text-muted">Create your first weekly basket using your profile and budget.</p>
+        <a href="/basket/new" class="btn btn-dark rounded-pill px-4">Create now</a>
+      </div>
+    <% } else { %>
+      <div class="row g-3">
+        <% baskets.forEach((basket) => { %>
+          <div class="col-md-6 col-lg-4">
+            <a class="basket-history-card" href="/basket/<%= basket._id %>">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <strong><%= basket.request.culturalPreference %> basket</strong>
+                  <p class="text-muted small mb-0"><%= new Date(basket.createdAt).toLocaleDateString() %></p>
+                </div>
+                <span>$<%= basket.total.toFixed(2) %></span>
+              </div>
+              <hr>
+              <p class="small mb-0"><%= basket.items.length %> grocery items · <%= basket.selectedStore %></p>
+            </a>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

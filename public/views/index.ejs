@@ -1,0 +1,78 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<main>
+  <section class="hero-section py-5 py-lg-6">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <span class="eyebrow">Student-friendly health-tech grocery app</span>
+          <h1 class="display-4 fw-bold mt-3 mb-3">Eat better without overspending.</h1>
+          <p class="lead text-muted mb-4">Prescription Basket creates a personalised weekly grocery basket based on your budget, culture, diet, cooking time, health goals and nearby store prices.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="/register" class="btn btn-primary-brand btn-lg rounded-pill px-4">Build my basket</a>
+            <a href="/login" class="btn btn-outline-dark btn-lg rounded-pill px-4">I already have an account</a>
+          </div>
+          <div class="trust-row mt-4">
+            <span>Budget-aware</span>
+            <span>Culturally flexible</span>
+            <span>Healthy swaps</span>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-card p-4 p-lg-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <p class="text-muted small mb-1">Weekly basket preview</p>
+                <h3 class="mb-0">Melbourne student basket</h3>
+              </div>
+              <span class="budget-badge">$78.40</span>
+            </div>
+            <div class="basket-preview-list">
+              <div><span>🥬 Vegetables</span><strong>Frozen veg, spinach, carrots</strong></div>
+              <div><span>🍚 Grains</span><strong>Low-GI basmati + oats</strong></div>
+              <div><span>🥚 Protein</span><strong>Lentils, tofu, eggs</strong></div>
+              <div><span>🛒 Best value</span><strong>Aldi + Asian grocery mix</strong></div>
+            </div>
+            <div class="swap-card mt-4">
+              <span class="swap-icon">↔</span>
+              <div>
+                <strong>Healthy swap detected</strong>
+                <p class="mb-0 small text-muted">Regular chickpeas → salt-reduced chickpeas for blood pressure support.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container py-5">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card h-100">
+          <div class="feature-icon">1</div>
+          <h4>Create your food profile</h4>
+          <p>Tell the app your weekly budget, suburb, cultural food preference, diet, health goals and cooking time.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card h-100">
+          <div class="feature-icon">2</div>
+          <h4>Generate a weekly basket</h4>
+          <p>Get groceries matched to your needs using a demo recommendation engine and realistic store pricing.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card h-100">
+          <div class="feature-icon">3</div>
+          <h4>Compare and upgrade</h4>
+          <p>Compare stores, review healthier swaps, and unlock checkout with a premium demo upgrade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
