@@ -41,34 +41,6 @@ The app lets users create an account, save a food profile, generate a personalis
 - Premium checkout gate
 - Demo premium upgrade button
 
-## Folder structure
-
-```txt
-prescription-basket-app/
-├── config/
-│   └── db.js
-├── data/
-│   └── demoData.js
-├── middleware/
-│   └── auth.js
-├── models/
-│   ├── Basket.js
-│   ├── Feedback.js
-│   └── User.js
-├── public/
-│   ├── css/styles.css
-│   └── js/app.js
-├── routes/
-│   ├── auth.js
-│   ├── basket.js
-│   └── profile.js
-├── services/
-│   └── basketService.js
-├── views/
-├── .env.example
-├── package.json
-└── server.js
-```
 
 ## Setup instructions
 
